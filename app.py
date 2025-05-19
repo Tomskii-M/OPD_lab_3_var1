@@ -7,13 +7,14 @@ app = Flask(__name__)
 @app.route('/', methods=['post', 'get'])
 def index():
     if request.method == 'GET':
-        return render_template('index.html',
-                                function= 'sin',
-                                angle= '',
-                                unit= 'degrees',
-                                precision= 2,
-                                result= None
-                                )
+        return render_template(
+            'index.html',
+            function= 'sin',
+            angle= '',
+            unit= 'degrees',
+            precision= 2,
+            result= None
+        )
 
     elif request.method == 'POST':
         # Получаем данные из формы
