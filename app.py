@@ -6,17 +6,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['post', 'get'])
 def index():
-    if request.method == 'GET':
-        return render_template(
-            'index.html',
-            function= 'sin',
-            angle= '',
-            unit= 'degrees',
-            precision= 2,
-            result= None
-        )
-
-    elif request.method == 'POST':
+    if request.method == 'POST':
         # Получаем данные из формы
         function = request.form.get('function')
         angle = float(request.form.get('angle'))
@@ -51,6 +41,15 @@ def index():
             result=result
         )
 
+    # GET-запрос
+    return render_template(
+        'index.html',
+        function='sin',
+        angle='',
+        unit='degrees',
+        precision=2,
+        result=None
+    )
 
 if __name__ == '__main__':
     app.run(debug=True)
