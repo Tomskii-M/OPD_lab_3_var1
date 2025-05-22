@@ -4,8 +4,21 @@ import math
 app = Flask(__name__)
 
 
-@app.route('/', methods=['post', 'get'])
+@app.route('/')
+@app.route('/index')
 def index():
+    return render_template(
+        'index.html',
+        function='sin',
+        angle='',
+        unit='degrees',
+        precision=2,
+        result=None
+    )
+
+
+@app.route('/', methods=['post', 'get'])
+def form():
     if request.method == 'POST':
         # Получаем данные из формы
         function = request.form.get('function')
@@ -27,7 +40,7 @@ def index():
         elif function == 'tan':
             value = math.tan(angle_rad)
         elif function == 'cot':
-            value = 1/math.tan(angle_rad)
+            value = 1 / math.tan(angle_rad)
 
         # Округляем до заданной точности
         result = round(value, precision)
@@ -41,15 +54,6 @@ def index():
             result=result
         )
 
-    # GET-запрос
-    return render_template(
-        'index.html',
-        function='sin',
-        angle='',
-        unit='degrees',
-        precision=2,
-        result=None
-    )
 
 if __name__ == '__main__':
     app.run(debug=True)
